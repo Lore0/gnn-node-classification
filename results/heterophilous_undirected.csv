@@ -1,0 +1,9 @@
+dataset,model,best_epoch,train_accuracy,val_accuracy,test_accuracy,test_macro_f1
+Texas,GCN,108,88.89,61.11,56.46,20.74
+Texas,ChebNet,21,100.0,61.11,60.54,29.1
+Wisconsin,GCN,191,96.0,68.0,56.22,29.36
+Wisconsin,ChebNet,27,100.0,72.0,66.67,36.06
+Actor,GCN,55,45.39,28.16,29.31,21.81
+Actor,ChebNet,13,76.05,30.0,32.35,26.89
+Chameleon,GCN,255,82.46,53.95,49.81,49.86
+Chameleon,ChebNet,11,97.81,42.98,37.34,35.91
