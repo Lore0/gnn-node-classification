@@ -129,7 +129,7 @@ This code is a refactor of the original Colab notebook. I checked it by running 
 
 The numbers won't match the thesis tables exactly, because those came from a Colab GPU. The CPU runs here differ by up to 6.4 points with the same seed and split (MLP on Chameleon: 32.07 on GPU, 38.50 on CPU).
 
-The original Graph Transformer also wasn't deterministic. SciPy's eigensolver starts from a random vector that `np.random.seed` doesn't control, so the signs of the positional encoding changed on every run. This code derives the start vector from the seed, and repeated runs are now identical. The sign choice alone moves Chameleon between 31.80% and 38.44%.
+With SciPy 1.17 the original Graph Transformer code isn't deterministic: the eigensolver starts from a random vector that `np.random.seed` doesn't control, so the signs of the positional encoding change on every run. This code derives the start vector from the seed, and repeated runs are now identical. The sign choice alone moves Chameleon between 31.80% and 38.44%.
 
 ## Limitations
 
