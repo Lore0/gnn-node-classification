@@ -28,6 +28,8 @@ Numbers from the thesis: test accuracy / macro-F1 in %, with the best accuracy p
 | Coauthor CS | 0.81 | 89.03 / 74.83 | 87.80 / 71.82 | **93.13** / 90.29 | 75.02 / 50.17 | 92.96 / 90.21 | 87.45 / 69.73 |
 | Amazon Photo | 0.83 | 84.44 / 74.49 | 80.88 / 70.58 | **91.50** / 85.53 | 44.30 / 16.47 | 89.95 / 83.58 | 83.01 / 73.71 |
 
+![Accuracy and macro-F1 on the homophilous datasets](figures/homophilous.png)
+
 ### Heterophilous graphs
 
 | Dataset | Homophily | MLP | GCN | ChebNet | H2GCN | Graph Transformer |
@@ -48,6 +50,10 @@ python run_experiment.py homophilous
 python run_experiment.py heterophilous --datasets Texas --models H2GCN
 python run_experiment.py homophilous --no-normalize
 python run_experiment.py heterophilous --undirected
+
+python dataset_stats.py      # size and edge homophily of every dataset
+python grid_search.py        # hidden size / learning rate search on the homophilous datasets
+python plot_results.py results/thesis_homophilous.csv figures/homophilous.png
 ```
 
 Datasets are downloaded to `data/` on first use and results are written to `results/`. A GPU is strongly recommended for the homophilous experiment.

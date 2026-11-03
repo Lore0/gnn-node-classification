@@ -19,11 +19,11 @@ The thesis applied `NormalizeFeatures` everywhere. Rerunning every model with an
 - **Why GraphSAGE and ChebNet collapse on raw Photo:** this is the opposite problem, large inputs at a learning rate of 0.05 make training unstable. My guess is that their non-aggregated "self" term passes the raw input straight through, but I haven't verified it.
 - **What it means:** GraphSAGE's lead on CS and Photo mostly comes from this preprocessing choice. Without normalization GCN, GAT, APPNP and SGC all reach about 93%. Preprocessing should be selected on validation data for each model, like any other hyperparameter.
 
-To reproduce: `python run_experiment.py homophilous --no-normalize`.
+To reproduce: `python run_experiment.py homophilous` for the normalized runs and `python run_experiment.py homophilous --no-normalize` for the raw ones, which writes `results/homophilous_raw.csv`. `normalization_check.csv` puts both in one file and was produced by an earlier version of the script, so it has a `normalized` column and no `val_accuracy`.
 
 ## Edge direction changes the result on Chameleon
 
-The four heterophilous graphs are directed in PyTorch Geometric. GCN and ChebNet used the edges as they are, while H2GCN and the Graph Transformer symmetrize them internally, so the comparison wasn't even. This is the test accuracy / macro-F1 with the same CPU setup (`results/heterophilous_undirected.csv`):
+The four heterophilous graphs are directed in PyTorch Geometric. GCN and ChebNet used the edges as they are, while H2GCN and the Graph Transformer symmetrize them internally, so the comparison wasn't even. This is the test accuracy / macro-F1 with the same CPU setup (directed runs in `results/heterophilous_cpu.csv`, undirected runs in `results/heterophilous_undirected.csv`):
 
 | Dataset | GCN, directed | GCN, undirected | ChebNet, directed | ChebNet, undirected | H2GCN |
 |---|---|---|---|---|---|
@@ -34,7 +34,7 @@ The four heterophilous graphs are directed in PyTorch Geometric. GCN and ChebNet
 
 On Chameleon H2GCN loses its lead: plain GCN wins once it gets the same undirected graph. On Texas it stays ahead here, but that lead depends on the seed: with seeds 1, 2 and 3 H2GCN reaches 64.63, 59.18 and 78.23% accuracy, against 65.31, 61.90 and 68.03% for the MLP.
 
-To reproduce: `python run_experiment.py heterophilous --undirected --models GCN ChebNet`.
+To reproduce: `python run_experiment.py heterophilous --device cpu --output results/heterophilous_cpu.csv` for the directed runs and `python run_experiment.py heterophilous --undirected --models GCN ChebNet` for the undirected ones.
 
 ## Protocol
 
